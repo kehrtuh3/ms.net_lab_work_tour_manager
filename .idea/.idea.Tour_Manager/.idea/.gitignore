@@ -1,0 +1,12 @@
+﻿# Настройки IDE (Rider / Visual Studio)
+.idea/
+.vs/
+*.user
+
+# Результаты сборки (Binaries)
+[Bb]in/
+[Oo]bj/
+
+# Прочее
+*.suo
+*.userprefs

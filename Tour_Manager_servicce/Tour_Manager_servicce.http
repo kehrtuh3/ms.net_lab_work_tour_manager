@@ -1,0 +1,6 @@
+@Tour_Manager_servicce_HostAddress = http://localhost:5204
+
+GET {{Tour_Manager_servicce_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
