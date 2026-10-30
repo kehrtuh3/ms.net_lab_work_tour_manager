@@ -15,11 +15,9 @@ public class Concert_Request: BaseEntity
 
     public Guid VenueId { get; set; }
     public Venue Venue { get; set; } = null!;
-
-    // кто отправил заявку (менеджер группы или менеджер площадки)
-    public Guid Requested_By_User_Id { get; set; }
-    public User Requested_By { get; set; } = null!;
-
-    // концерт, созданный из этой заявки (есть только у принятых)
+    
+    public Guid RequestedById { get; set; }
+    public User RequestedBy { get; set; } = null!;
+    
     public Concert? Concert { get; set; }
 }

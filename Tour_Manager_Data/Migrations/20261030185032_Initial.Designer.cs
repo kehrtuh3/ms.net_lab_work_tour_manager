@@ -12,8 +12,8 @@ using Tour_Manager_Data;
 namespace Tour_Manager_Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261028210916_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20261030185032_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,10 +107,7 @@ namespace Tour_Manager_Data.Migrations
                     b.Property<DateTime>("ProposedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("Requested_ById")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Requested_By_User_Id")
+                    b.Property<Guid>("RequestedById")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Status")
@@ -123,7 +120,7 @@ namespace Tour_Manager_Data.Migrations
 
                     b.HasIndex("BandId");
 
-                    b.HasIndex("Requested_ById");
+                    b.HasIndex("RequestedById");
 
                     b.HasIndex("VenueId");
 
@@ -351,9 +348,9 @@ namespace Tour_Manager_Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tour_Manager_Data.Entities.User", "Requested_By")
+                    b.HasOne("Tour_Manager_Data.Entities.User", "RequestedBy")
                         .WithMany("SentRequests")
-                        .HasForeignKey("Requested_ById")
+                        .HasForeignKey("RequestedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -365,7 +362,7 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Navigation("Band");
 
-                    b.Navigation("Requested_By");
+                    b.Navigation("RequestedBy");
 
                     b.Navigation("Venue");
                 });

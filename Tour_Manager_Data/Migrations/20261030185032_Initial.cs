@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Tour_Manager_Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -121,8 +121,7 @@ namespace Tour_Manager_Data.Migrations
                     AnswerMessage = table.Column<string>(type: "text", nullable: true),
                     BandId = table.Column<Guid>(type: "uuid", nullable: false),
                     VenueId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Requested_By_User_Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Requested_ById = table.Column<Guid>(type: "uuid", nullable: false)
+                    RequestedById = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,8 +133,8 @@ namespace Tour_Manager_Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ConcertRequests_Users_Requested_ById",
-                        column: x => x.Requested_ById,
+                        name: "FK_ConcertRequests_Users_RequestedById",
+                        column: x => x.RequestedById,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -230,9 +229,9 @@ namespace Tour_Manager_Data.Migrations
                 column: "BandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConcertRequests_Requested_ById",
+                name: "IX_ConcertRequests_RequestedById",
                 table: "ConcertRequests",
-                column: "Requested_ById");
+                column: "RequestedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConcertRequests_VenueId",

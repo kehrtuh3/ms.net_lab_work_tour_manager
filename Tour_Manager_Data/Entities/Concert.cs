@@ -14,8 +14,7 @@ public class Concert: BaseEntity
 
     public Guid? CancelledByUserId { get; set; }
     public User? CancelledByUser { get; set; }
-
-    // концерт создаётся только из принятой заявки
+    
     public Guid RequestId { get; set; }
     public Concert_Request Request { get; set; } = null!;
 
