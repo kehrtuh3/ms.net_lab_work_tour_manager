@@ -103,4 +103,6 @@
 <img width="1322" height="368" alt="image" src="https://github.com/user-attachments/assets/b0f7504d-e1fc-4005-b1fc-628c80ad0072" />
 <img width="1257" height="705" alt="image" src="https://github.com/user-attachments/assets/cc6e84cd-dd86-464f-92d4-e01e1180839f" />
 
+# Исправленная модель данных для второй лабораторной работы 
+<img width="1225" height="704" alt="image" src="https://github.com/user-attachments/assets/d3efe04f-b72e-4010-8ee9-69e0c4e17bbb" />
 
