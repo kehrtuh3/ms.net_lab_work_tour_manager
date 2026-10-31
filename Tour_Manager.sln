@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tour_Manager_servicce", "Tour_Manager_servicce\Tour_Manager_servicce.csproj", "{AE0D88A4-50D1-4A1C-8D32-5D81C5EF2562}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tour_Manager_service", "Tour_Manager_service\Tour_Manager_service.csproj", "{AE0D88A4-50D1-4A1C-8D32-5D81C5EF2562}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tour_Manager_Data", "Tour_Manager_Data\Tour_Manager_Data.csproj", "{6101E1D3-9922-4E56-A571-3E47B66A4F6A}"
 EndProject

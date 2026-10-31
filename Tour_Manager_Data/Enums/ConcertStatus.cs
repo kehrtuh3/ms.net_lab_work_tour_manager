@@ -1,6 +1,6 @@
 namespace Tour_Manager_Data.Enums;
 
-public enum Concert_Status
+public enum ConcertStatus
 {
     Planned = 0,
     Published = 1,

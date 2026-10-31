@@ -1,6 +1,6 @@
 namespace Tour_Manager_Data.Enums;
 
-public enum Popularity_Lvl
+public enum PopularityLvl
 {
     Low = 0,
     Medium = 1,

@@ -28,9 +28,6 @@ namespace Tour_Manager_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BandId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("CancellationCause")
                         .HasColumnType("text");
 
@@ -51,36 +48,35 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<Guid>("RequestId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<decimal>("TicketPrice")
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
 
-                    b.Property<Guid>("VenueId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("BandId");
 
                     b.HasIndex("CancelledByUserId");
 
                     b.HasIndex("RequestId")
                         .IsUnique();
 
-                    b.HasIndex("VenueId");
-
-                    b.ToTable("Concerts");
+                    b.ToTable("Concerts", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Concert_Price", "\"TicketPrice\" >= 0");
+                        });
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Concert_Request", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.ConcertRequest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,8 +103,10 @@ namespace Tour_Manager_Data.Migrations
                     b.Property<Guid>("RequestedById")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<Guid>("VenueId")
                         .HasColumnType("uuid");
@@ -121,10 +119,10 @@ namespace Tour_Manager_Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("ConcertRequests");
+                    b.ToTable("ConcertRequests", (string)null);
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Favourite_Band", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.FavouriteBand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,10 +144,10 @@ namespace Tour_Manager_Data.Migrations
                     b.HasIndex("UserId", "BandId")
                         .IsUnique();
 
-                    b.ToTable("FavouriteBands");
+                    b.ToTable("FavouriteBands", (string)null);
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Favourite_Concert", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.FavouriteConcert", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -171,10 +169,10 @@ namespace Tour_Manager_Data.Migrations
                     b.HasIndex("UserId", "ConcertId")
                         .IsUnique();
 
-                    b.ToTable("FavouriteConcerts");
+                    b.ToTable("FavouriteConcerts", (string)null);
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Music_Band", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.MusicBand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,17 +189,21 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Genre")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("ManagerId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
-                    b.Property<int>("PopularityLvl")
-                        .HasColumnType("integer");
+                    b.Property<string>("PopularityLvl")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -210,7 +212,7 @@ namespace Tour_Manager_Data.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.ToTable("Bands");
+                    b.ToTable("Bands", (string)null);
                 });
 
             modelBuilder.Entity("Tour_Manager_Data.Entities.User", b =>
@@ -221,7 +223,8 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("boolean");
@@ -231,13 +234,10 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Nickname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -247,19 +247,22 @@ namespace Tour_Manager_Data.Migrations
                     b.Property<DateTime>("RegisteredAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Tour_Manager_Data.Entities.Venue", b =>
@@ -270,14 +273,16 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -291,7 +296,8 @@ namespace Tour_Manager_Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("VenueType")
                         .IsRequired()
@@ -301,45 +307,33 @@ namespace Tour_Manager_Data.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.ToTable("Venues");
+                    b.ToTable("Venues", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Venue_Capacity", "\"Capacity\" > 0");
+                        });
                 });
 
             modelBuilder.Entity("Tour_Manager_Data.Entities.Concert", b =>
                 {
-                    b.HasOne("Tour_Manager_Data.Entities.Music_Band", "Band")
-                        .WithMany("Concerts")
-                        .HasForeignKey("BandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Tour_Manager_Data.Entities.User", "CancelledByUser")
                         .WithMany("CancelledConcerts")
-                        .HasForeignKey("CancelledByUserId");
+                        .HasForeignKey("CancelledByUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Tour_Manager_Data.Entities.Concert_Request", "Request")
+                    b.HasOne("Tour_Manager_Data.Entities.ConcertRequest", "Request")
                         .WithOne("Concert")
                         .HasForeignKey("Tour_Manager_Data.Entities.Concert", "RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tour_Manager_Data.Entities.Venue", "Venue")
-                        .WithMany("Concerts")
-                        .HasForeignKey("VenueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Band");
-
                     b.Navigation("CancelledByUser");
 
                     b.Navigation("Request");
-
-                    b.Navigation("Venue");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Concert_Request", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.ConcertRequest", b =>
                 {
-                    b.HasOne("Tour_Manager_Data.Entities.Music_Band", "Band")
+                    b.HasOne("Tour_Manager_Data.Entities.MusicBand", "Band")
                         .WithMany("Requests")
                         .HasForeignKey("BandId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,7 +342,7 @@ namespace Tour_Manager_Data.Migrations
                     b.HasOne("Tour_Manager_Data.Entities.User", "RequestedBy")
                         .WithMany("SentRequests")
                         .HasForeignKey("RequestedById")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tour_Manager_Data.Entities.Venue", "Venue")
@@ -364,9 +358,9 @@ namespace Tour_Manager_Data.Migrations
                     b.Navigation("Venue");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Favourite_Band", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.FavouriteBand", b =>
                 {
-                    b.HasOne("Tour_Manager_Data.Entities.Music_Band", "Band")
+                    b.HasOne("Tour_Manager_Data.Entities.MusicBand", "Band")
                         .WithMany("FavouritedBy")
                         .HasForeignKey("BandId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -383,7 +377,7 @@ namespace Tour_Manager_Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Favourite_Concert", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.FavouriteConcert", b =>
                 {
                     b.HasOne("Tour_Manager_Data.Entities.Concert", "Concert")
                         .WithMany("FavouritedBy")
@@ -402,12 +396,12 @@ namespace Tour_Manager_Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Music_Band", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.MusicBand", b =>
                 {
                     b.HasOne("Tour_Manager_Data.Entities.User", "Manager")
                         .WithMany("ManagedBands")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Manager");
@@ -418,7 +412,7 @@ namespace Tour_Manager_Data.Migrations
                     b.HasOne("Tour_Manager_Data.Entities.User", "Manager")
                         .WithMany("ManagedVenues")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Manager");
@@ -429,15 +423,13 @@ namespace Tour_Manager_Data.Migrations
                     b.Navigation("FavouritedBy");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Concert_Request", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.ConcertRequest", b =>
                 {
                     b.Navigation("Concert");
                 });
 
-            modelBuilder.Entity("Tour_Manager_Data.Entities.Music_Band", b =>
+            modelBuilder.Entity("Tour_Manager_Data.Entities.MusicBand", b =>
                 {
-                    b.Navigation("Concerts");
-
                     b.Navigation("FavouritedBy");
 
                     b.Navigation("Requests");
@@ -460,8 +452,6 @@ namespace Tour_Manager_Data.Migrations
 
             modelBuilder.Entity("Tour_Manager_Data.Entities.Venue", b =>
                 {
-                    b.Navigation("Concerts");
-
                     b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618

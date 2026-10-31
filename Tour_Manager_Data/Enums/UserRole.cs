@@ -1,6 +1,6 @@
 namespace Tour_Manager_Data.Enums;
 
-public enum User_Role
+public enum UserRole
 {
     User = 0,
     BandManager = 1,

@@ -1,6 +1,6 @@
 namespace Tour_Manager_Data.Enums;
 
-public enum Request_Status
+public enum RequestStatus
 {
     Waiting = 0,
     Accepted = 1,

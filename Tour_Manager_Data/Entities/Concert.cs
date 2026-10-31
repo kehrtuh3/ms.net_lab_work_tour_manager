@@ -6,23 +6,15 @@ public class Concert: BaseEntity
     public string? Description { get; set; }
     public DateTime Date { get; set; }
     public decimal TicketPrice { get; set; }
-    public Concert_Status Status { get; set; } = Concert_Status.Planned;
+    public ConcertStatus Status { get; set; } = ConcertStatus.Planned;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public string? CancellationCause { get; set; }
     public DateTime? CancelledAt { get; set; }
-
-    public Guid? CancelledByUserId { get; set; }
+    
     public User? CancelledByUser { get; set; }
     
-    public Guid RequestId { get; set; }
-    public Concert_Request Request { get; set; } = null!;
+    public ConcertRequest Request { get; set; } = null!;
 
-    public Guid BandId { get; set; }
-    public Music_Band Band { get; set; } = null!;
-
-    public Guid VenueId { get; set; }
-    public Venue Venue { get; set; } = null!;
-
-    public ICollection<Favourite_Concert> FavouritedBy { get; set; } = new List<Favourite_Concert>();
+    public ICollection<FavouriteConcert> FavouritedBy { get; set; } = new List<FavouriteConcert>();
 }

@@ -9,10 +9,7 @@ public class Venue: BaseEntity
     public string Address { get; set; } = string.Empty;
     public int Capacity { get; set; }
     public string? Description { get; set; }
-
-    public Guid ManagerId { get; set; }
+    
     public User Manager { get; set; } = null!;
-
-    public ICollection<Concert> Concerts { get; set; } = new List<Concert>();
-    public ICollection<Concert_Request> Requests { get; set; } = new List<Concert_Request>();
+    public ICollection<ConcertRequest> Requests { get; set; } = new List<ConcertRequest>();
 }
